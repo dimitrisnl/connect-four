@@ -25,6 +25,7 @@ export const setPixels = (board: any) => {
 }
 
 export const generatePlayers = (number: number): Array<Player> => {
+  console.log(number)
   return [new Player([255, 0, 0]), new Player([0, 255, 0])]
 }
 
