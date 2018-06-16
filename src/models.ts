@@ -27,6 +27,7 @@ export class Game {
     const position = [...Array(8).keys()]
       .map(x => x * 8 + this.indicator.position)
       .filter(x => x > 7)
+      .filter(x => this.state[x] === AVAILABLE_SPACE)
       .pop()
     if (position) this.state[position] = color
   }
