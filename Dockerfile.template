@@ -12,9 +12,9 @@ RUN JOBS=MAX npm install --unsafe-perm --production
 
 COPY . ./
 
-CMD rm -rf dist
+RUN JOBS=MAX npm run clean --unsafe-perm --production
 
-RUN sh -c tsc
+RUN JOBS=MAX npm run build --unsafe-perm --production
 
 RUN node --check dist/app.js
 
