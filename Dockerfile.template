@@ -10,6 +10,10 @@ RUN JOBS=MAX npm install --unsafe-perm --production
 
 COPY . ./
 
+RUN JOBS=MAX npm run clean --unsafe-perm --production
+
+RUN JOBS=MAX npm run build --unsafe-perm --production
+
 RUN node --check dist/app.js
 
 CMD node dist/app.js
