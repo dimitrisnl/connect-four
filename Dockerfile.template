@@ -4,8 +4,6 @@ ENV INITSYSTEM on
 
 WORKDIR /usr/src/app
 
-RUN npm install -g typescript
-
 COPY package.json .
 
 RUN JOBS=MAX npm install --unsafe-perm --production
