@@ -10,7 +10,7 @@ RUN JOBS=MAX npm install --unsafe-perm --production
 
 COPY . ./
 
-RUN JOBS=MAX npm run clean --unsafe-perm --production
+CMD rm -rf dist
 
 RUN JOBS=MAX npm run build --unsafe-perm --production
 
