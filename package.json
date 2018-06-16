@@ -16,9 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "sense-hat-led": "^1.0.1",
-    "sense-joystick": "^0.0.3"
-  },
-  "devDependencies": {
+    "sense-joystick": "^0.0.3",
     "@types/node": "^10.3.3",
     "husky": "^1.0.0-rc.9",
     "prettier": "^1.13.5",
