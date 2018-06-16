@@ -15,7 +15,8 @@
     "paths": {
       "~/*": ["./src/*"],
       "*": ["./node_modules/@types/*", "*"]
-    }
+    },
+    "types": ["node"]
   },
-  "include": ["./src/**/*.ts", "./src/**/*.d.ts"]
+  "include": ["./src/*.ts", "./src/*.d.ts"]
 }
