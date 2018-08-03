@@ -20,7 +20,3 @@ export const BOARD_INITIAL_STATE: Board = [
   _, _, _, _, _, _, _, _,
   _, _, _, _, _, _, _, _
 ]
-
-export const hasConnectFour = (array: Array<Color>) => {
-  console.log(DOTS_TO_WIN, array)
-}

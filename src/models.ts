@@ -26,6 +26,7 @@ export class Game {
     this.indicator = { position: 3, color: STAGING_SPACE }
   }
   clear = (): void => {
+    console.log('should clear the board')
     this.state = BOARD_INITIAL_STATE
   }
   apply = (color: Color): void => {
@@ -40,10 +41,6 @@ export class Game {
     return this.state[this.indicator.position + 8] === AVAILABLE_SPACE
   }
   isFull = (): boolean => {
-    console.log(
-      'isFull',
-      this.state.filter(x => x === AVAILABLE_SPACE).length === 0
-    )
     return this.state.filter(x => x === AVAILABLE_SPACE).length === 0
   }
   clearIndicator = (): void => {
@@ -83,7 +80,6 @@ export class Game {
   hasWonVertically = (state: Board, color: Color): boolean => {
     const consecutiveDots = state.reduce(
       (sum: any, current: Color, index: number) => {
-        console.log(sum)
         if (index < 8 || sum === DOTS_TO_WIN) {
           return sum
         }
