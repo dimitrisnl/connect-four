@@ -30,6 +30,7 @@ senseJoystick.getJoystick().then((joystick: any) => {
       }
 
       if (Board.isFull()) {
+        console.log('is full')
         Board.clear()
       }
 
