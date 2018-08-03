@@ -84,11 +84,13 @@ export class Game {
     const consecutiveDots = state.reduce(
       (sum: any, current: Color, index: number) => {
         if (index < 8 || sum === DOTS_TO_WIN) {
-          console.log({ sum, current, index })
           return sum
         }
         if (index % 8 === 0) {
           sum = 0
+        }
+        if (current === color) {
+          console.log({ sum, current, index })
         }
         return current === color ? sum + 1 : 0
       },
