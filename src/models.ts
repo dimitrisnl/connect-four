@@ -84,11 +84,11 @@ export class Game {
     const consecutiveDots = state.reduce(
       (sum: any, current: Color, index: number) => {
         console.log({ sum, current, index })
-        if (sum === DOTS_TO_WIN) {
+        if (index < 8 || sum === DOTS_TO_WIN) {
           return sum
         }
         if (index % 8 === 0) {
-          return 0
+          sum = 0
         }
         return current === color ? sum + 1 : 0
       },
@@ -99,11 +99,11 @@ export class Game {
   hasWonHorizontally = (state: Board, color: Color): boolean => {
     const consecutiveDots = state.reduce(
       (sum: any, current: Color, index: number) => {
-        if (sum === DOTS_TO_WIN) {
+        if (index < 8 || sum === DOTS_TO_WIN) {
           return sum
         }
         if (index % 8 === 0) {
-          return 0
+          sum = 0
         }
         return current === color ? sum + 1 : 0
       },
@@ -114,11 +114,11 @@ export class Game {
   hasWonDiagonally = (state: Board, color: Color): boolean => {
     const consecutiveDots = state.reduce(
       (sum: any, current: Color, index: number) => {
-        if (sum === DOTS_TO_WIN) {
+        if (index < 8 || sum === DOTS_TO_WIN) {
           return sum
         }
         if (index % 8 === 0) {
-          return 0
+          sum = 0
         }
         return current === color ? sum + 1 : 0
       },
