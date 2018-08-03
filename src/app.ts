@@ -1,6 +1,12 @@
 const senseJoystick = require('sense-joystick')
-import { Game, Player } from './models'
-import { RED_COLOR, GREEN_COLOR, setPixels } from './utils'
+const senseLeds = require('sense-hat-led')
+
+import { Game, Player } from '~/models'
+import { RED_COLOR, GREEN_COLOR } from '~/constants'
+
+const setPixels = (board: any) => {
+  senseLeds.setPixels(board)
+}
 
 const Board = new Game()
 const players = [new Player(RED_COLOR), new Player(GREEN_COLOR)]
