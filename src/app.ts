@@ -21,12 +21,13 @@ senseJoystick.getJoystick().then((joystick: any) => {
       Board.applyMove()
 
       if (Board.hasWin()) {
-        console.log('have win')
-        Board.clear()
+        Board.announceWinner()
+        this.setTimeout(() => {
+          Board.clear()
+        }, 3000)
       }
 
       if (Board.isFull()) {
-        console.log('have full')
         Board.clear()
       }
 
