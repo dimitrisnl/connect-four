@@ -22,7 +22,7 @@ senseJoystick.getJoystick().then((joystick: any) => {
 
       if (Board.hasWin()) {
         Board.announceWinner()
-        this.setTimeout(() => {
+        setTimeout(() => {
           Board.clear()
         }, 3000)
       }

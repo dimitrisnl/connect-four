@@ -24,6 +24,7 @@ export class Game {
     if (position) this.state[position] = this.indicator.color
   }
   isValid = (): boolean => {
+    // check if at least the head of the column is an empty cell
     return this.state[this.indicator.position + 8] === AVAILABLE_SPACE
   }
   isFull = (): boolean => {
