@@ -2,7 +2,7 @@ export const RED_COLOR: Color = [255, 0, 0]
 export const GREEN_COLOR: Color = [0, 255, 0]
 
 export const AVAILABLE_SPACE: Color = [0, 0, 0]
-export const STAGING_SPACE: Color = [45, 45, 45]
+export const STAGING_SPACE: Color = [50, 50, 50]
 
 export const _: Color = AVAILABLE_SPACE
 export const v: Color = STAGING_SPACE

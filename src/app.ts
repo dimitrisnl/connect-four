@@ -18,9 +18,9 @@ senseJoystick.getJoystick().then((joystick: any) => {
         return
       }
 
-      Board.applyMove(players[currentPlayerIdx])
+      Board.applyMove()
 
-      if (Board.hasWin(players[currentPlayerIdx])) {
+      if (Board.hasWin()) {
         console.log('have win')
         Board.clear()
       }

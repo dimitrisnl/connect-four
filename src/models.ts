@@ -5,33 +5,23 @@ import {
   DOTS_TO_WIN,
 } from './constants'
 
-export class Player {
-  color: Color
-  constructor(color: Color) {
-    this.color = color
-  }
-  play = () => this.color
-}
-
 export class Game {
   state: Board
   indicator: Indicator
   constructor() {
-    this.state = BOARD_INITIAL_STATE
+    this.state = [...BOARD_INITIAL_STATE]
     this.indicator = { position: 3, color: STAGING_SPACE }
   }
   clear = (): void => {
-    console.log('should clear the board')
-    console.log(BOARD_INITIAL_STATE)
-    this.state = BOARD_INITIAL_STATE
+    this.state = [...BOARD_INITIAL_STATE]
   }
-  applyMove = (color: Color): void => {
+  applyMove = (): void => {
     const position = [...Array(8).keys()]
       .map(x => x * 8 + this.indicator.position)
       .filter(x => x > 7)
       .filter(x => this.state[x] === AVAILABLE_SPACE)
       .pop()
-    if (position) this.state[position] = color
+    if (position) this.state[position] = this.indicator.color
   }
   isValid = (): boolean => {
     return this.state[this.indicator.position + 8] === AVAILABLE_SPACE
@@ -66,7 +56,8 @@ export class Game {
     }
     this.state[this.indicator.position] = this.indicator.color
   }
-  hasWin = (color: Color): boolean => {
+  hasWin = (): boolean => {
+    const { color } = this.indicator
     return (
       this.hasWonVertically(this.state, color) ||
       this.hasWonHorizontally(this.state, color) ||
