@@ -13,14 +13,15 @@ senseLeds.setPixels(Board.state)
 
 senseJoystick.getJoystick().then((joystick: any) => {
   joystick.on('press', (value: string) => {
-    console.log(value)
-    if (value === 'click') {
+    if (value === 'click' || value === 'down' || value === 'up') {
       if (!Board.isValid()) return false
 
       Board.apply(players[currentPlayerIdx].play())
       currentPlayerIdx = 1 - currentPlayerIdx
 
       if (Board.hasWin()) Board.clear()
+      if (Board.isFull()) Board.clear()
+
       Board.setIndicator(players[currentPlayerIdx].color)
     } else Board.moveIndicator(value)
     senseLeds.setPixels(Board.state)

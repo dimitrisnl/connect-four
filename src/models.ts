@@ -38,6 +38,9 @@ export class Game {
   isValid = (): boolean => {
     return this.state[this.indicator.position + 8] === AVAILABLE_SPACE
   }
+  isFull = (): boolean => {
+    return this.state.filter(x => x === AVAILABLE_SPACE).length === 7
+  }
   clearIndicator = (): void => {
     this.state[this.indicator.position] = STAGING_SPACE
   }
@@ -66,19 +69,19 @@ export class Game {
     this.state[this.indicator.position] = this.indicator.color
   }
   hasWin = (): boolean => {
-    if (this.hasWonVertically()) return false
-    if (this.hasWonHorizontally()) return false
-    if (this.hasWonDiagonally()) return false
+    if (this.hasWonVertically(this.state)) return false
+    if (this.hasWonHorizontally(this.state)) return false
+    if (this.hasWonDiagonally(this.state)) return false
 
     return false
   }
-  hasWonVertically = (): boolean => {
+  hasWonVertically = (state: Board): boolean => {
+    return state.
+  }
+  hasWonHorizontally = (state: Board): boolean => {
     return false
   }
-  hasWonHorizontally = (): boolean => {
-    return false
-  }
-  hasWonDiagonally = (): boolean => {
+  hasWonDiagonally = (state: Board): boolean => {
     return false
   }
 }
