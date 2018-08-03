@@ -22,8 +22,10 @@ senseJoystick.getJoystick().then((joystick: any) => {
 
       if (Board.hasWin()) {
         Board.announceWinner()
+        senseLeds.setPixels(Board.state)
         setTimeout(() => {
           Board.clear()
+          senseLeds.setPixels(Board.state)
         }, 3000)
       }
 

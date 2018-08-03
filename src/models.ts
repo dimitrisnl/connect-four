@@ -59,6 +59,7 @@ export class Game {
   }
   announceWinner = (): void => {
     this.state = this.state.map(() => this.indicator.color)
+    console.log(this.state)
   }
   hasWin = (): boolean => {
     const { color } = this.indicator
