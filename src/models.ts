@@ -20,7 +20,6 @@ export class Player {
 export class Game {
   state: Board
   indicator: Indicator
-  indicatorFlicker: any
   constructor() {
     this.state = BOARD_INITIAL_STATE
     this.indicator = { position: 3, color: STAGING_SPACE }
@@ -43,11 +42,8 @@ export class Game {
     this.state[this.indicator.position] = STAGING_SPACE
   }
   setIndicator = (color: Color): void => {
-    this.state[this.indicator.position] = AVAILABLE_SPACE
-    this.indicatorFlicker = setTimeout(() => {
-      this.indicator.color = color
-      this.setIndicator(color)
-    }, 3000)
+    this.indicator.color = color
+    this.state[this.indicator.position] = color
   }
   moveIndicator = (direction: string): void => {
     const { position } = this.indicator
