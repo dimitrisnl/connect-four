@@ -1,6 +1,3 @@
-const senseLeds = require('sense-hat-led')
-import { Player } from './models'
-
 export const RED_COLOR: Color = [255, 0, 0]
 export const GREEN_COLOR: Color = [0, 255, 0]
 
@@ -23,10 +20,6 @@ export const BOARD_INITIAL_STATE: Board = [
   _, _, _, _, _, _, _, _,
   _, _, _, _, _, _, _, _
 ]
-
-export const setPixels = (board: any) => {
-  senseLeds.setPixels(board)
-}
 
 export const hasConnectFour = (array: Array<Color>) => {
   console.log(DOTS_TO_WIN, array)
