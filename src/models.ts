@@ -7,15 +7,10 @@ import {
 
 export class Player {
   color: Color
-  moves: number
   constructor(color: Color) {
     this.color = color
-    this.moves = 0
   }
-  play = () => {
-    this.moves++
-    return this.color
-  }
+  play = () => this.color
 }
 
 export class Game {
@@ -27,9 +22,10 @@ export class Game {
   }
   clear = (): void => {
     console.log('should clear the board')
+    console.log(BOARD_INITIAL_STATE)
     this.state = BOARD_INITIAL_STATE
   }
-  apply = (color: Color): void => {
+  applyMove = (color: Color): void => {
     const position = [...Array(8).keys()]
       .map(x => x * 8 + this.indicator.position)
       .filter(x => x > 7)
