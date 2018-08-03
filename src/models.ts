@@ -9,11 +9,11 @@ export class Game {
   state: Board
   indicator: Indicator
   constructor() {
-    this.state = [...BOARD_INITIAL_STATE]
-    this.indicator = { position: 3, color: STAGING_SPACE }
+    this.clear()
   }
   clear = (): void => {
     this.state = [...BOARD_INITIAL_STATE]
+    this.indicator = { position: 3, color: STAGING_SPACE }
   }
   applyMove = (): void => {
     const position = [...Array(8).keys()]
