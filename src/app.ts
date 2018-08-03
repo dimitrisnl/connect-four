@@ -19,7 +19,7 @@ senseJoystick.getJoystick().then((joystick: any) => {
       Board.apply(players[currentPlayerIdx].play())
       currentPlayerIdx = 1 - currentPlayerIdx
 
-      if (Board.hasWin()) Board.clear()
+      if (Board.hasWin(players[currentPlayerIdx].color)) Board.clear()
       if (Board.isFull()) Board.clear()
 
       Board.setIndicator(players[currentPlayerIdx].color)

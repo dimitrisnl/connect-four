@@ -2,6 +2,7 @@ import {
   AVAILABLE_SPACE,
   STAGING_SPACE,
   BOARD_INITIAL_STATE,
+  DOTS_TO_WIN,
 } from './constants'
 
 export class Player {
@@ -68,20 +69,56 @@ export class Game {
     }
     this.state[this.indicator.position] = this.indicator.color
   }
-  hasWin = (): boolean => {
-    if (this.hasWonVertically(this.state)) return false
-    if (this.hasWonHorizontally(this.state)) return false
-    if (this.hasWonDiagonally(this.state)) return false
-
-    return false
+  hasWin = (color: Color): boolean => {
+    return (
+      this.hasWonVertically(this.state, color) ||
+      this.hasWonHorizontally(this.state, color) ||
+      this.hasWonDiagonally(this.state, color)
+    )
   }
-  hasWonVertically = (state: Board): boolean => {
-    return state.
+  hasWonVertically = (state: Board, color: Color): boolean => {
+    const concecutiveDots = state.reduce(
+      (sum: any, current: Color, index: number) => {
+        if (sum === DOTS_TO_WIN) {
+          return sum
+        }
+        if (index % 8 === 0) {
+          return 0
+        }
+        return current === color ? sum + 1 : 0
+      },
+      0
+    )
+    return concecutiveDots === DOTS_TO_WIN
   }
-  hasWonHorizontally = (state: Board): boolean => {
-    return false
+  hasWonHorizontally = (state: Board, color: Color): boolean => {
+    const concecutiveDots = state.reduce(
+      (sum: any, current: Color, index: number) => {
+        if (sum === DOTS_TO_WIN) {
+          return sum
+        }
+        if (index % 8 === 0) {
+          return 0
+        }
+        return current === color ? sum + 1 : 0
+      },
+      0
+    )
+    return concecutiveDots === DOTS_TO_WIN
   }
-  hasWonDiagonally = (state: Board): boolean => {
-    return false
+  hasWonDiagonally = (state: Board, color: Color): boolean => {
+    const concecutiveDots = state.reduce(
+      (sum: any, current: Color, index: number) => {
+        if (sum === DOTS_TO_WIN) {
+          return sum
+        }
+        if (index % 8 === 0) {
+          return 0
+        }
+        return current === color ? sum + 1 : 0
+      },
+      0
+    )
+    return concecutiveDots === DOTS_TO_WIN
   }
 }
