@@ -83,14 +83,12 @@ export class Game {
   hasWonVertically = (state: Board, color: Color): boolean => {
     const consecutiveDots = state.reduce(
       (sum: any, current: Color, index: number) => {
+        console.log(sum)
         if (index < 8 || sum === DOTS_TO_WIN) {
           return sum
         }
         if (index % 8 === 0) {
           sum = 0
-        }
-        if (current === color) {
-          console.log({ sum, current, index })
         }
         return current === color ? sum + 1 : 0
       },
