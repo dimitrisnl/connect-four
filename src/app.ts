@@ -4,6 +4,7 @@ const senseLeds = require('sense-hat-led')
 import { Game } from './models'
 import { RED_COLOR, GREEN_COLOR } from './constants'
 
+let declaringWinner = false
 const Board = new Game()
 const players = [RED_COLOR, GREEN_COLOR]
 let currentPlayerIdx = 0
@@ -14,15 +15,19 @@ senseLeds.setPixels(Board.state)
 senseJoystick.getJoystick().then((joystick: any) => {
   joystick.on('press', (value: string) => {
     if (value === 'click' || value === 'down' || value === 'up') {
-      if (!Board.isValid()) {
+      if (!Board.isValid() || declaringWinner) {
         return
       }
 
       Board.applyMove()
 
       if (Board.hasWin()) {
+        declaringWinner = true
         senseLeds.showMessage('Winner', Board.indicator.color, () => {
-          console.log('ended')
+          declaringWinner = false
+          Board.clear()
+          Board.setIndicator(players[currentPlayerIdx])
+          senseLeds.setPixels(Board.state)
         })
       } else if (Board.isFull()) {
         Board.clear()
@@ -33,6 +38,8 @@ senseJoystick.getJoystick().then((joystick: any) => {
     } else {
       Board.moveIndicator(value)
     }
-    senseLeds.setPixels(Board.state)
+    if (!declaringWinner) {
+      senseLeds.setPixels(Board.state)
+    }
   })
 })
