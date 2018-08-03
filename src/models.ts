@@ -40,6 +40,10 @@ export class Game {
     return this.state[this.indicator.position + 8] === AVAILABLE_SPACE
   }
   isFull = (): boolean => {
+    console.log(
+      'isFull',
+      this.state.filter(x => x === AVAILABLE_SPACE).length === 7
+    )
     return this.state.filter(x => x === AVAILABLE_SPACE).length === 7
   }
   clearIndicator = (): void => {
@@ -77,8 +81,9 @@ export class Game {
     )
   }
   hasWonVertically = (state: Board, color: Color): boolean => {
-    const concecutiveDots = state.reduce(
+    const consecutiveDots = state.reduce(
       (sum: any, current: Color, index: number) => {
+        console.log({ sum, current, index })
         if (sum === DOTS_TO_WIN) {
           return sum
         }
@@ -89,10 +94,10 @@ export class Game {
       },
       0
     )
-    return concecutiveDots === DOTS_TO_WIN
+    return consecutiveDots === DOTS_TO_WIN
   }
   hasWonHorizontally = (state: Board, color: Color): boolean => {
-    const concecutiveDots = state.reduce(
+    const consecutiveDots = state.reduce(
       (sum: any, current: Color, index: number) => {
         if (sum === DOTS_TO_WIN) {
           return sum
@@ -104,10 +109,10 @@ export class Game {
       },
       0
     )
-    return concecutiveDots === DOTS_TO_WIN
+    return consecutiveDots === DOTS_TO_WIN
   }
   hasWonDiagonally = (state: Board, color: Color): boolean => {
-    const concecutiveDots = state.reduce(
+    const consecutiveDots = state.reduce(
       (sum: any, current: Color, index: number) => {
         if (sum === DOTS_TO_WIN) {
           return sum
@@ -119,6 +124,6 @@ export class Game {
       },
       0
     )
-    return concecutiveDots === DOTS_TO_WIN
+    return consecutiveDots === DOTS_TO_WIN
   }
 }
