@@ -2,7 +2,7 @@ import {
   AVAILABLE_SPACE,
   STAGING_SPACE,
   BOARD_INITIAL_STATE,
-} from '~/constants'
+} from './constants'
 
 export class Player {
   color: Color
