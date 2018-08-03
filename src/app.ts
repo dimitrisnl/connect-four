@@ -36,6 +36,7 @@ senseJoystick.getJoystick().then((joystick: any) => {
       senseLeds.showMessage('Winner', 0.1, Board.indicator.color, () => {
         declaringWinner = false
         Board.clear()
+        currentPlayerIdx = 1 - currentPlayerIdx
         Board.setIndicator(players[currentPlayerIdx])
         senseLeds.setPixels(Board.state)
       })
