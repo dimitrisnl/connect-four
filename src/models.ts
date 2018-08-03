@@ -42,7 +42,7 @@ export class Game {
   isFull = (): boolean => {
     console.log(
       'isFull',
-      this.state.filter(x => x === AVAILABLE_SPACE).length === 7
+      this.state.filter(x => x === AVAILABLE_SPACE).length === 0;
     )
     return this.state.filter(x => x === AVAILABLE_SPACE).length === 7
   }
@@ -83,6 +83,7 @@ export class Game {
   hasWonVertically = (state: Board, color: Color): boolean => {
     const consecutiveDots = state.reduce(
       (sum: any, current: Color, index: number) => {
+        console.log(color)
         console.log({ sum, current, index })
         if (index < 8 || sum === DOTS_TO_WIN) {
           return sum
