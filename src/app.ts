@@ -22,7 +22,7 @@ senseJoystick.getJoystick().then((joystick: any) => {
 
       if (Board.hasWin()) {
         Board.announceWinner()
-        senseLeds.setPixels(Board.state)
+        senseLeds.setPixels(Array(64).fill(Board.indicator.color))
         setTimeout(() => {
           Board.clear()
           senseLeds.setPixels(Board.state)
