@@ -42,9 +42,9 @@ export class Game {
   isFull = (): boolean => {
     console.log(
       'isFull',
-      this.state.filter(x => x === AVAILABLE_SPACE).length === 0;
+      this.state.filter(x => x === AVAILABLE_SPACE).length === 0
     )
-    return this.state.filter(x => x === AVAILABLE_SPACE).length === 7
+    return this.state.filter(x => x === AVAILABLE_SPACE).length === 0
   }
   clearIndicator = (): void => {
     this.state[this.indicator.position] = STAGING_SPACE
