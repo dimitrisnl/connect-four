@@ -93,21 +93,25 @@ export class Game {
   }
 
   hasWonHorizontally = (board: Board, color: Color): boolean => {
+    console.log(board)
     for (let i = 0; i <= 7; i++) {
-      const array = board.filter((_x, idx) => idx % i === 0)
-      console.log('hotizontal array:', array)
+      const firstIdx = i * 8
+      console.log(firstIdx)
+      const array = board.filter(
+        (_x, idx) => idx >= firstIdx && idx <= firstIdx + 7
+      )
+      console.log('hor array:', array)
       if (this.hasXConsecutive(array, color, DOTS_TO_WIN)) return true
     }
     return false
   }
 
   hasWonVertically = (board: Board, color: Color): boolean => {
+    console.log(board)
     for (let i = 0; i <= 7; i++) {
-      const firstIdx = i * 8
-      const array = board.filter(
-        (_x, idx) => idx >= firstIdx && idx <= firstIdx + 7
-      )
-      console.log('vertical array:', array)
+      console.log(i)
+      const array = board.filter((_x, idx) => idx % i === 0)
+      console.log('verti array:', array)
       if (this.hasXConsecutive(array, color, DOTS_TO_WIN)) return true
     }
     return false
