@@ -1,26 +1,22 @@
-const senseJoystick = require('sense-joystick')
-const senseLeds = require('sense-hat-led')
+const sJoystick = require('sense-joystick')
+const sLeds = require('sense-hat-led')
 
 import { Game } from './models'
-import { RED_COLOR, GREEN_COLOR } from './constants'
 
-let declaringWinner = false
+let gameIsPaused = false
 const Board = new Game()
-const players = [RED_COLOR, GREEN_COLOR]
-let currentPlayerIdx = 0
 
-Board.setIndicator(players[currentPlayerIdx])
-senseLeds.setPixels(Board.state)
+sLeds.setPixels(Board.state)
 
-senseJoystick.getJoystick().then((joystick: any) => {
-  joystick.on('press', (value: string) => {
-    if (declaringWinner) {
+sJoystick.getJoystick().then((joystick: any) => {
+  joystick.on('press', (direction: string) => {
+    if (gameIsPaused) {
       return
     }
 
-    if (value === 'left' || value === 'right') {
-      Board.moveIndicator(value)
-      senseLeds.setPixels(Board.state)
+    if (direction === 'left' || direction === 'right') {
+      Board.moveIndicator(direction)
+      sLeds.setPixels(Board.state)
       return
     }
 
@@ -31,14 +27,13 @@ senseJoystick.getJoystick().then((joystick: any) => {
     Board.applyMove()
 
     if (Board.hasWin()) {
-      declaringWinner = true
+      gameIsPaused = true
 
-      senseLeds.showMessage('Winner', 0.1, Board.indicator.color, () => {
-        declaringWinner = false
+      sLeds.showMessage('Winner!', 0.1, Board.indicator.color, () => {
+        gameIsPaused = false
         Board.clear()
-        currentPlayerIdx = 1 - currentPlayerIdx
-        Board.setIndicator(players[currentPlayerIdx])
-        senseLeds.setPixels(Board.state)
+        Board.takeTurns()
+        sLeds.setPixels(Board.state)
       })
       return
     }
@@ -47,8 +42,7 @@ senseJoystick.getJoystick().then((joystick: any) => {
       Board.clear()
     }
 
-    currentPlayerIdx = 1 - currentPlayerIdx
-    Board.setIndicator(players[currentPlayerIdx])
-    senseLeds.setPixels(Board.state)
+    Board.takeTurns()
+    sLeds.setPixels(Board.state)
   })
 })

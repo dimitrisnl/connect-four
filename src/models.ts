@@ -3,18 +3,46 @@ import {
   STAGING_SPACE,
   BOARD_INITIAL_STATE,
   DOTS_TO_WIN,
+  RED_COLOR,
+  GREEN_COLOR,
 } from './constants'
 
 export class Game {
   state: Board
   indicator: Indicator
+  players: Array<Color>
+  currentPlayerIdx: number
+
   constructor() {
     this.clear()
+    this.players = [RED_COLOR, GREEN_COLOR]
+    this.currentPlayerIdx = 0
+    this.setIndicator(this.currentPlayer())
   }
+
   clear = (): void => {
     this.state = [...BOARD_INITIAL_STATE]
     this.indicator = { position: 3, color: STAGING_SPACE }
   }
+
+  isFull = (): boolean => {
+    return this.state.find(x => x === AVAILABLE_SPACE) !== undefined
+  }
+
+  moveIsValid = (): boolean => {
+    // Check if at least the next item horizontically is available
+    return this.state[this.indicator.position + 8] === AVAILABLE_SPACE
+  }
+
+  /*
+    1. Generating an array of [0, 1, 3, 4, 5, 6, 7]
+    2. Giving it increments of 8, so that it behaves like column,
+       and moving it in the appropriate index where the indicator is.
+      E.g. for column 4 (index 3), it will be [4, 12, 20, 28, 36, 44, 52]
+    3. Drop the first since it's a staging cell
+    4. Keep only the available spaces
+    5. Get the last one and fill it
+  */
   applyMove = (): void => {
     const position = [...Array(8).keys()]
       .map(x => x * 8 + this.indicator.position)
@@ -23,91 +51,87 @@ export class Game {
       .pop()
     if (position) this.state[position] = this.indicator.color
   }
-  moveIsValid = (): boolean => {
-    // check if at least the head of the column is an empty cell
-    return this.state[this.indicator.position + 8] === AVAILABLE_SPACE
+
+  currentPlayer = (): Color => {
+    return this.players[this.currentPlayerIdx]
   }
-  isFull = (): boolean => {
-    return this.state.filter(x => x === AVAILABLE_SPACE).length === 0
+
+  takeTurns = (): void => {
+    this.currentPlayerIdx = 1 - this.currentPlayerIdx
+    this.setIndicator(this.currentPlayer())
   }
-  clearIndicator = (): void => {
-    this.state[this.indicator.position] = STAGING_SPACE
-  }
+
   setIndicator = (color: Color): void => {
     this.indicator.color = color
     this.state[this.indicator.position] = color
   }
+
   moveIndicator = (direction: string): void => {
-    const { position } = this.indicator
-    this.clearIndicator()
-    switch (direction) {
-      case 'left':
-        if (position > 0) this.indicator.position--
-        else this.indicator.position = 7
-        break
-      case 'right':
-        if (position < 7) this.indicator.position++
-        else this.indicator.position = 0
-        break
-      case 'up':
-      case 'down':
-        break
-      default:
-        this.indicator.position = 0
+    const { position, color } = this.indicator
+    this.state[position] = STAGING_SPACE
+
+    if (direction === 'left') {
+      this.indicator.position = position > 0 ? position - 1 : 7
     }
-    this.state[this.indicator.position] = this.indicator.color
+
+    if (direction === 'right') {
+      this.indicator.position = position < 7 ? position + 1 : 0
+    }
+
+    this.state[this.indicator.position] = color
   }
+
   hasWin = (): boolean => {
     const { color } = this.indicator
+    const board = this.state.filter((_x, i) => i > 7)
+
     return (
-      this.hasWonVertically(this.state, color) ||
-      this.hasWonHorizontally(this.state, color) ||
-      this.hasWonDiagonally(this.state, color)
+      this.hasWonVertically(board, color) ||
+      this.hasWonHorizontally(board, color) ||
+      this.hasWonDiagonally(board, color)
     )
   }
-  hasWonVertically = (state: Board, color: Color): boolean => {
-    const consecutiveDots = state.reduce(
-      (sum: any, current: Color, index: number) => {
-        if (index < 8 || sum === DOTS_TO_WIN) {
-          return sum
-        }
-        if (index % 8 === 0) {
-          sum = 0
-        }
-        return current === color ? sum + 1 : 0
-      },
-      0
-    )
-    return consecutiveDots === DOTS_TO_WIN
+
+  hasWonHorizontally = (board: Board, color: Color): boolean => {
+    for (let i = 0; i <= 7; i++) {
+      const array = board.filter((_x, idx) => idx % i === 0)
+      if (this.hasXConsecutive(array, color, DOTS_TO_WIN)) return true
+    }
+    return false
   }
-  hasWonHorizontally = (state: Board, color: Color): boolean => {
-    const consecutiveDots = state.reduce(
-      (sum: any, current: Color, index: number) => {
-        if (index < 8 || sum === DOTS_TO_WIN) {
-          return sum
-        }
-        if (index % 8 === 0) {
-          sum = 0
-        }
-        return current === color ? sum + 1 : 0
-      },
-      0
-    )
-    return consecutiveDots === DOTS_TO_WIN
+
+  hasWonVertically = (board: Board, color: Color): boolean => {
+    for (let i = 0; i <= 7; i++) {
+      const firstIdx = i * 8
+      const array = board.filter(
+        (_x, idx) => idx >= firstIdx && idx <= firstIdx + 7
+      )
+      if (this.hasXConsecutive(array, color, DOTS_TO_WIN)) return true
+    }
+    return false
   }
-  hasWonDiagonally = (state: Board, color: Color): boolean => {
-    const consecutiveDots = state.reduce(
-      (sum: any, current: Color, index: number) => {
-        if (index < 8 || sum === DOTS_TO_WIN) {
-          return sum
-        }
-        if (index % 8 === 0) {
-          sum = 0
-        }
-        return current === color ? sum + 1 : 0
-      },
-      0
-    )
-    return consecutiveDots === DOTS_TO_WIN
+
+  hasWonDiagonally = (board: Board, color: Color): boolean => {
+    for (let i = 0; i <= 7; i++) {
+      const array = board.filter((_x, idx) => idx % i === 0)
+      if (this.hasXConsecutive(array, color, DOTS_TO_WIN)) return true
+    }
+    return false
+  }
+
+  hasXConsecutive = (
+    array: Array<Color>,
+    color: Color,
+    amountNeedeed: number
+  ) => {
+    let consecutiveDots = 0
+    for (let cell of array) {
+      consecutiveDots = cell === color ? consecutiveDots + 1 : 0
+
+      if (consecutiveDots === amountNeedeed) {
+        return true
+      }
+      return false
+    }
   }
 }
