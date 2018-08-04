@@ -95,6 +95,7 @@ export class Game {
   hasWonHorizontally = (board: Board, color: Color): boolean => {
     for (let i = 0; i <= 7; i++) {
       const array = board.filter((_x, idx) => idx % i === 0)
+      console.log('hotizontal array:', array)
       if (this.hasXConsecutive(array, color, DOTS_TO_WIN)) return true
     }
     return false
@@ -106,6 +107,7 @@ export class Game {
       const array = board.filter(
         (_x, idx) => idx >= firstIdx && idx <= firstIdx + 7
       )
+      console.log('vertical array:', array)
       if (this.hasXConsecutive(array, color, DOTS_TO_WIN)) return true
     }
     return false
