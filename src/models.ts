@@ -87,7 +87,7 @@ export class Game {
 
     return (
       // this.hasWonVertically(board, color) ||
-      this.hasWonHorizontally(board, color) ||
+      this.hasWonHorizontally(board, color)
       // this.hasWonDiagonally(board, color)
     )
   }
