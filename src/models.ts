@@ -86,9 +86,9 @@ export class Game {
     const board = this.state.filter((_x, i) => i > 7)
 
     return (
-      this.hasWonVertically(board, color) ||
+      // this.hasWonVertically(board, color) ||
       this.hasWonHorizontally(board, color) ||
-      this.hasWonDiagonally(board, color)
+      // this.hasWonDiagonally(board, color)
     )
   }
 
@@ -121,11 +121,7 @@ export class Game {
     return false
   }
 
-  hasXConsecutive = (
-    array: Array<Color>,
-    color: Color,
-    amountNeedeed: number
-  ) => {
+  hasXConsecutive = (array: Board, color: Color, amountNeedeed: number) => {
     let consecutiveDots = 0
     for (let cell of array) {
       consecutiveDots = cell === color ? consecutiveDots + 1 : 0
