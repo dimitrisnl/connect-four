@@ -20,7 +20,7 @@
     "sense-joystick": "^0.0.3",
     "husky": "^1.0.0-rc.9",
     "prettier": "^1.13.5",
-    "rimraf": "^2.6.2",
+    "rimraf": "^2.6.3",
     "typescript": "^2.9.2"
   },
   "husky": {
