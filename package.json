@@ -15,7 +15,7 @@
   "author": "Dimitrios Lytras <dnlytras@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^10.3.3",
+    "@types/node": "^10.12.18",
     "sense-hat-led": "^1.0.1",
     "sense-joystick": "^0.0.3",
     "husky": "^1.0.0-rc.9",
